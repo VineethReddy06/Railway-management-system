@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Railway Reservation System</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+  <div class="container">
+    <!-- LOGIN PAGE -->
+    <div id="loginPage">
+      <h2>Login</h2>
+      <input type="text" id="loginUserId" placeholder="Enter User ID">
+      <input type="password" id="loginPassword" placeholder="Enter Password">
+      <label>Enter CAPTCHA:</label>
+      <div class="captcha-box">
+        <span id="captchaText">1234</span>
+        <button onclick="generateCaptcha()" class="refresh-btn">↻</button>
+      </div>
+      <input type="text" id="captchaInput" placeholder="Enter CAPTCHA">
+      <button onclick="login()">Login</button>
+      <p class="link">Don't have an account? <a href="#" onclick="showPage('registerPage')">Register here</a></p>
+    </div>
+
+    <!-- REGISTRATION PAGE -->
+    <div id="registerPage" class="hidden">
+      <h2>Register</h2>
+      <input type="text" id="regUserId" placeholder="Enter User ID">
+      <input type="password" id="regPassword" placeholder="Enter Password">
+      <input type="email" id="regEmail" placeholder="Enter Email">
+      <button onclick="register()">Register</button>
+      <p class="link"><a href="#" onclick="showPage('loginPage')">Back to Login</a></p>
+    </div>
+
+    <!-- STATION SELECTION -->
+    <div id="stationSection" class="hidden">
+      <h2>Select Route</h2>
+      <select id="boardingStation">
+        <option value="">Select Boarding Station</option>
+        {% for station in stations %}
+          <option value="{{ station[0] }}">{{ station[0] }}</option>
+        {% endfor %}
+      </select>
+      <select id="destinationStation">
+        <option value="">Select Destination Station</option>
+        {% for station in stations %}
+          <option value="{{ station[0] }}">{{ station[0] }}</option>
+        {% endfor %}
+      </select>
+      <button onclick="showTrainSelection()">Check Availability</button>
+    </div>
+
+    <!-- TRAIN SELECTION -->
+    <div id="trainSelectionSection" class="hidden">
+      <h2>Select a Train</h2>
+      <select id="trainSelect">
+        <option value="">Select a Train</option>
+        <option value="101">Express 101</option>
+        <option value="102">Superfast 102</option>
+        <option value="103">Rapid 103</option>
+      </select>
+      <button onclick="showCustomerDetails()">Proceed to Customer Details</button>
+    </div>
+
+    <!-- CUSTOMER DETAILS -->
+    <div id="customerDetailsSection" class="hidden">
+      <h2>Customer Details</h2>
+      <input type="text" id="customerName" placeholder="Name">
+      <input type="text" id="customerContact" placeholder="Contact Number">
+      <input type="number" id="customerAge" placeholder="Age">
+      <button onclick="showPaymentSection()">Proceed to Payment</button>
+    </div>
+
+    <!-- PAYMENT -->
+    <div id="paymentSection" class="hidden">
+      <h2>Payment Details</h2>
+      <p>Ticket Price: ₹<span id="ticketPrice">0</span></p>
+      <input type="number" id="paymentAmount" placeholder="Enter Payment Amount">
+      <button onclick="processPayment()">Pay Now</button>
+    </div>
+
+    <!-- TICKET CONFIRMATION -->
+    <div id="successMessage" class="hidden">
+      <h2>Ticket Booked Successfully!</h2>
+      <p>Thank you for using our service!</p>
+    </div>
+  </div>
+
+  <script src="{{ url_for('static', filename='railwayreservation.js') }}"></script>
+</body>
+</html>
